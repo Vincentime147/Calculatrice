@@ -17,10 +17,99 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--" />
+
+            <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Calculatrice" />
+                android:text="0" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonClean"
+                android:layout_width="wrap_content"
+                android:layout_height="85dp"
+                android:layout_weight="1"
+                android:text="CC" />
+
+            <Button
+                android:id="@+id/buttonDivisionE"
+                android:layout_width="wrap_content"
+                android:layout_height="85dp"
+                android:layout_weight="1"
+                android:text="%" />
+
+            <Button
+                android:id="@+id/buttonDivision"
+                android:layout_width="wrap_content"
+                android:layout_height="85dp"
+                android:layout_weight="1"
+                android:text="÷" />
+
+
+            <Button
+                android:id="@+id/buttonEffacer"
+                android:layout_width="wrap_content"
+                android:layout_height="85dp"
+                android:layout_weight="1"
+                android:text="Supp" />
         </LinearLayout>
 
         <LinearLayout
@@ -130,12 +219,7 @@
             android:layout_height="85dp"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/buttonEffacer"
-                android:layout_width="wrap_content"
-                android:layout_height="85dp"
-                android:layout_weight="1"
-                android:text="Supp" />
+
 
             <Button
                 android:id="@+id/button0"
@@ -144,12 +228,6 @@
                 android:layout_weight="1"
                 android:text="0" />
 
-            <Button
-                android:id="@+id/buttonDivision"
-                android:layout_width="wrap_content"
-                android:layout_height="85dp"
-                android:layout_weight="1"
-                android:text="÷" />
 
             <Button
                 android:id="@+id/buttonResultat"

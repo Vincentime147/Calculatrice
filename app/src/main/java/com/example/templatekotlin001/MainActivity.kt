@@ -1,22 +1,36 @@
 package com.example.templatekotlin001
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Button
-import com.example.templatekotlin001.databinding.ActivityMainBinding
+import android.widget.TextView
+import androidx.annotation.RequiresApi
 
 class MainActivity : AppCompatActivity() {
+    private var input = StringBuilder()
+    private lateinit var display: TextView
+    private lateinit var historyViews: List<TextView>
+    private val calculationHistory = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        display = findViewById(R.id.textView)
+
+        historyViews = listOf(
+            findViewById(R.id.textView2),
+            findViewById(R.id.textView3),
+            findViewById(R.id.textView4),
+            findViewById(R.id.textView7),
+            findViewById(R.id.textView6),
+            findViewById(R.id.textView7),
+            findViewById(R.id.textView8),
+            findViewById(R.id.textView9),
+            findViewById(R.id.textView10),
+        )
 
         val buttons = mapOf(
             "0" to findViewById<Button>(R.id.button0),
@@ -36,11 +50,79 @@ class MainActivity : AppCompatActivity() {
             "=" to findViewById<Button>(R.id.buttonResultat),
             "/" to findViewById<Button>(R.id.buttonDivision),
             "Supp" to findViewById<Button>(R.id.buttonEffacer),
-
+            "%" to findViewById<Button>(R.id.buttonDivisionE),
+            "C" to findViewById<Button>(R.id.buttonClean),
         )
+        buttons.forEach { (key, button) ->
+            button.setOnClickListener { actionButton(key) }
+        }
+    }
+    private fun actionButton(inputValue: String) {
+        when (inputValue) {
+            "=" -> {
+                try {
+                    val result = eval(input.toString())
+                    val resultText = "${input.toString()} = $result"
+                    display.text = result.toString()
+                    input.clear()
+                    input.append(result)
+
+                    addToHistory(resultText)
+                } catch (e: Exception) {
+                    display.text = "Erreur"
+                    input.clear()
+                }
+            }
+            "Supp" -> {
+                if (input.isNotEmpty()) {
+                    input.deleteCharAt(input.length - 1)
+                }
+                display.text = if (input.isEmpty()) "0" else input.toString()
+            }
+            "C" -> {
+                input.clear()
+                display.text = "0"
+            }
+            else -> {
+                if (display.text == "0" || display.text == "Erreur") {
+                    display.text = ""
+                }
+                input.append(inputValue)
+                display.text = input.toString()
+            }
+        }
     }
 
-        //display = findViewById(R.id.textView3)
+    private fun eval(expression: String): Double {
+        val symbols = expression.split("(?<=[-+*/%])|(?=[-+*/%])".toRegex()).map { it.trim() }
+        val result = mutableListOf<Double>()
+        var operator = '+';
 
+        for (sympol in symbols) {
+            if (sympol.isEmpty()) continue;
+            if (sympol in listOf("+", "-", "*", "/", "%")) {
+                operator = sympol[0];
+            } else {
+                val num = sympol.toDouble()
+                when (operator) {
+                    '+' -> result.add(num);
+                    '-' -> result.add(-num);
+                    '*' -> result[result.lastIndex] = result.last() * num;
+                    '/' -> result[result.lastIndex] = result.last() / num;
+                    '%' -> result[result.lastIndex] = result.last() % num;
+                }
+            }
+        }
+        return result.sum()
+    }
+    private fun addToHistory(entry: String) {
+        calculationHistory.add(0, entry)
+        if (calculationHistory.size > historyViews.size) {
+            calculationHistory.removeAt(calculationHistory.size - 1)
+        }
 
+        historyViews.forEachIndexed { index, textView ->
+            textView.text = calculationHistory.getOrNull(index) ?: ""
+        }
+    }
 }
